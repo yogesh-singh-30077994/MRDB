@@ -1,0 +1,67 @@
+﻿@model IEnumerable<MvcMRDB.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Movies</h1>
+
+<form asp-action="Index" class="row g-1" method="get">
+    <div class="col-auto">
+        <select name="searchBy" class="form-select">
+            <option disabled selected>Search By</option>
+            <option value="Title">Title</option>
+            <option value="Genre">Genre</option>
+        </select>
+    </div>
+    <div class="col-9">
+        <input name="searchString" type="text" class="form-control">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-success mb-3">Search</button>
+    </div>
+</form>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Genre)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.MovieId" class="btn btn-primary">View</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.MovieId" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.MovieId" class="btn btn-danger">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
