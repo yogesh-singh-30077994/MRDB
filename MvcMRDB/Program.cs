@@ -41,9 +41,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//app.UseStatusCodePages(System.Net.Mime.MediaTypeNames.Text.Plain, "Yogesh");
-//app.UseStatusCodePagesWithRedirects("/Home/Error");
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
